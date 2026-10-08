@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="section max-w-4xl mx-auto text-center py-10 md:py-20 mt-12 max-md:min-h-screen"
+      className="section max-w-4xl mx-auto text-center py-10 md:py-20 mt-12 min-h-screen"
     >
       <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 text-center font-mono text-[clamp(0.6875rem,0.625rem+0.2vw,0.8125rem)] uppercase tracking-wider text-muted sm:px-4 sm:py-2 sm:tracking-widest">
         <span className="relative flex h-3 w-3 shrink-0 items-center justify-center">
