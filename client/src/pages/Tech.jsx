@@ -1,11 +1,9 @@
 import { MARQUEE_TECH } from "../assets/assets";
+import { Section } from "../shared/Section";
 
 const Tech = () => {
   return (
-    <section
-      id="tech-stack"
-      className="section mx-auto max-w-6xl scroll-mt-20  py-10 md:py-20 px-4"
-    >
+    <Section id="tech-stack">
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Under the hood
       </p>
@@ -38,7 +36,7 @@ const Tech = () => {
           ))}
         </ul>
       </div>
-    </section>
+    </Section>
   );
 };
 

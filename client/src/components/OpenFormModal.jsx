@@ -7,7 +7,7 @@ const OpenFormModal = ({ isOpen, onClose, onSubmit }) => {
   const [mode, setMode] = useState("login");
   const formRef = useRef(null);
   const isLogin = mode === "login";
-  const formDetails = FORM_DATA[mode];
+  const formDetails = FORM_DATA[mode]; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,19 +22,30 @@ const OpenFormModal = ({ isOpen, onClose, onSubmit }) => {
 
   useEffect(() => {
     if (!isOpen) return;
+
     const opener = document.activeElement;
-    const onKeyDown = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKeyDown);
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      opener?.focus?.();
-      setMode("register");
+      window.removeEventListener("keydown", handleKeyDown);
+
+      // Restore focus only when the opener is still visible
+      if (
+        opener instanceof HTMLElement &&
+        opener.isConnected &&
+        !opener.closest('[aria-hidden="true"], [inert]')
+      ) {
+        opener.focus({ preventScroll: true });
+      }
     };
   }, [isOpen, onClose]);
-
-  useEffect(() => {
-    if (isOpen) formRef.current?.querySelector("input")?.focus();
-  }, [isOpen, mode]);
 
   return (
     <div
@@ -66,7 +77,7 @@ const OpenFormModal = ({ isOpen, onClose, onSubmit }) => {
           <X size={16} />
         </button>
 
-        <div className="relative mb-6 text-center">
+        <div className="mb-6 text-center">
           <span className="mx-auto mb-4 block h-10 w-10 rounded-xl bg-linear-to-br from-gold to-coral" />
           <h2 id="auth-title" className="font-heading font-bold md:text-2xl">
             {formDetails.title}

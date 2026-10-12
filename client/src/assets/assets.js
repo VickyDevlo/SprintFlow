@@ -12,11 +12,11 @@ import {
 } from "lucide-react";
 
 export const NAV_LINKS = [
-  { label: "Home", id: "home" },
-  { label: "Tasks", id: "tasks" },
-  { label: "Collaboration", id: "collaboration" },
-  { label: "How it works", id: "how-it-works" },
-  { label: "Tech", id: "tech-stack" },
+  [ "home", "Home" ],
+  [ "tasks", "Tasks" ],
+  [ "collaboration", "Collaboration" ],
+  [ "how-it-works", "How it works" ],
+  [ "tech-stack", "Tech" ],
 ];
 export const AVATARS = [
   { l: "A", c: "bg-pink-500" },

@@ -1,12 +1,10 @@
 import { HOW_IT_WORKS_STEPS } from "../assets/assets";
 import { FeatureCard } from "../shared/FeatureCard";
+import { Section } from "../shared/Section";
 
 const HowItWorks = () => {
   return (
-    <section
-      id="how-it-works"
-      className="section mx-auto max-w-6xl scroll-mt-20  py-10 md:py-20 px-4"
-    >
+    <Section id="how-it-works">
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         How it works
       </p>
@@ -30,7 +28,7 @@ const HowItWorks = () => {
           />
         ))}
       </div>
-    </section>
+    </Section>
   );
 };
 

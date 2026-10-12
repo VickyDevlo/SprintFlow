@@ -12,7 +12,7 @@ const Stats = () => {
             <p className="font-heading text-[clamp(1.75rem,1rem+2.5vw,3rem)] font-bold leading-none text-lime">
               {value}
             </p>
-            <p className="mt-3 font-mono text-xs max-md:text-center uppercase tracking-widest text-muted">
+            <p className="mt-3 font-mono text-xs uppercase tracking-widest text-muted">
               {label}
             </p>
           </div>

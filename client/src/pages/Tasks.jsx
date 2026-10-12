@@ -1,12 +1,10 @@
 import { FEATURES } from "../assets/assets";
 import { FeatureCard } from "../shared/FeatureCard";
+import { Section } from "../shared/Section";
 
 const Tasks = () => {
   return (
-    <section
-      id="tasks"
-      className="section mx-auto max-w-6xl py-10 md:py-20 px-4"
-    >
+    <Section id="tasks">
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         Task management, simplified
       </p>
@@ -27,7 +25,7 @@ const Tasks = () => {
           <FeatureCard key={feature.title} {...feature} />
         ))}
       </div>
-    </section>
+    </Section>
   );
 };
 export default Tasks;

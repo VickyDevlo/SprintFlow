@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 
-export const useActiveSection = (ids) => {
+export const useActiveSection = (ids, offset = 120) => {
   const [active, setActive] = useState(ids[0]);
 
   useEffect(() => {
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+    const onScroll = () => {
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 2;
+      if (atBottom) return setActive(ids[ids.length - 1]);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entering = entries.filter((e) => e.isIntersecting);
-        if (entering.length) setActive(entering[entering.length - 1].target.id);
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-    );
+      let current = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= offset) current = id;
+      }
+      setActive(current);
+    };
 
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, [ids]);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ids, offset]);
 
   return active;
 };

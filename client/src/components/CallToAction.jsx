@@ -2,11 +2,12 @@ import { MoveRight } from "lucide-react";
 
 export const CallToAction = ({ onClick }) => {
   return (
-    <section className="section relative isolate overflow-hidden px-4 py-20          text-center mb-5">
+    <section className="relative isolate overflow-hidden px-5 py-10 text-center">
       {/* Glow that fades into the page */}
+
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-[min(90vw,48rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,var(--color-coral)_0%,var(--color-gold)_40%,transparent_70%)] opacity-25 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-80 w-[min(90vw,48rem)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,var(--color-coral)_0%,transparent_70%)] opacity-25 blur-2xl"
       />
 
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
