@@ -1,20 +1,30 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from 'react-redux'
 import { Lock, Mail, MoveRight, User, X } from "lucide-react";
 import { FORM_DATA } from "../assets/assets";
 import { FormField } from "../shared/FormField";
+import { login } from "../redux/features/auth/authSlice";
 
 const OpenFormModal = ({ isOpen, onClose, onSubmit }) => {
   const [mode, setMode] = useState("login");
+  const dispatch = useDispatch();
   const formRef = useRef(null);
   const isLogin = mode === "login";
   const formDetails = FORM_DATA[mode]; 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.currentTarget));
-    await onSubmit?.({ mode, ...data });
-    isLogin ? onClose() : setMode("login");
-  };
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.currentTarget));
+  await onSubmit?.({ mode, ...data });
+
+  if (isLogin) {
+    // later: replace with the user returned by your API
+    dispatch(login({ email: data.email }));
+    onClose();
+  } else {
+    setMode("login"); // after register, show the login form
+  }
+};
 
   const switchMode = () => {
     setMode(formDetails.switchTo);
@@ -46,6 +56,18 @@ const OpenFormModal = ({ isOpen, onClose, onSubmit }) => {
       }
     };
   }, [isOpen, onClose]);
+
+useEffect(() => {
+  if (!isOpen) return;
+
+  const frame = requestAnimationFrame(() => {
+    formRef.current
+      ?.querySelector("input")
+      ?.focus({ preventScroll: true });
+  });
+
+  return () => cancelAnimationFrame(frame);
+}, [isOpen, mode]);
 
   return (
     <div
