@@ -9,6 +9,7 @@ import {
   Users,
   CalendarDays,
   Rocket,
+  CheckCircle2, ClipboardList, Zap
 } from "lucide-react";
 
 export const NAV_LINKS = [
@@ -142,6 +143,42 @@ export const MARQUEE_TECH = [
   "Tailwind",
   "Socket.io",
 ];
+
+export const COLUMNS = [
+  {
+    key: "todo",
+    label: "To Do",
+    icon: ClipboardList,
+    bar: "bg-coral",
+    text: "text-coral",
+    chip: "bg-coral/15 text-coral",
+  },
+  {
+    key: "progress",
+    label: "In Progress",
+    icon: Zap,
+    bar: "bg-gold",
+    text: "text-gold",
+    chip: "bg-gold/15 text-gold",
+  },
+  {
+    key: "done",
+    label: "Done",
+    icon: CheckCircle2,
+    bar: "bg-lime",
+    text: "text-lime",
+    chip: "bg-lime/15 text-lime",
+  },
+];
+
+export const PRIORITY_STYLES = {
+  low: { chip: "bg-lime/15 text-lime", bar: "bg-lime" },
+  medium: { chip: "bg-gold/15 text-gold", bar: "bg-gold" },
+  high: { chip: "bg-coral/15 text-coral", bar: "bg-coral" },
+};
+
+export const INPUT_CLASS =
+  "w-full rounded-xl border border-border/60 bg-bg/50 px-4 py-3 text-sm text-text placeholder:text-muted focus:border-lime focus:outline-none";
 
 export const FOOTER_COLUMNS = [
   {

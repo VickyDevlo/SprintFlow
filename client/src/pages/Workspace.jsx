@@ -12,7 +12,7 @@ import {
   closeProject,
 } from "../redux/features/projects/projectsSlice";
 import { Section } from "../shared/Section";
-import { getGreeting, today } from "../utils/Greeting";
+import { getGreeting, today } from "../utils/utils";
 
 const Workspace = () => {
   const dispatch = useDispatch();
