@@ -142,3 +142,41 @@ export const MARQUEE_TECH = [
   "Tailwind",
   "Socket.io",
 ];
+
+export const FOOTER_COLUMNS = [
+  {
+    title: "Product",
+    links: [
+      { label: "Tasks", id: "tasks" },
+      { label: "Collaboration", id: "collaboration" },
+      { label: "How it works", id: "how-it-works" },
+      { label: "Tech stack", id: "tech-stack" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Careers", href: "/careers" },
+      { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "mailto:hello@sprintflow.com" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Documentation", href: "/docs" },
+      { label: "Help center", href: "/help" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Support", href: "mailto:support@sprintflow.com" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      { label: "Cookies", href: "/cookies" },
+    ],
+  },
+];
