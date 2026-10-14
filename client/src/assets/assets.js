@@ -217,3 +217,39 @@ export const FOOTER_COLUMNS = [
     ],
   },
 ];
+
+export const STATUSES = [
+  {
+    key: "todo",
+    label: "To Do",
+    icon: ClipboardList,
+    tile: "bg-coral",
+    active: "border-coral/40 bg-coral/15 text-coral",
+  },
+  {
+    key: "progress",
+    label: "In Progress",
+    icon: Zap,
+    tile: "bg-gold",
+    active: "border-gold/40 bg-gold/15 text-gold",
+  },
+  {
+    key: "done",
+    label: "Done",
+    icon: CheckCircle2,
+    tile: "bg-lime",
+    active: "border-lime/40 bg-lime/15 text-lime",
+  },
+];
+
+export const PRIORITY = {
+  low: "bg-lime/15 text-lime",
+  medium: "bg-gold/15 text-gold",
+  high: "bg-coral/15 text-coral",
+};
+
+export const DUE_TONE = {
+  "text-coral": "bg-coral/15 text-coral",
+  "text-gold": "bg-gold/15 text-gold",
+  "text-muted": "bg-white/5 text-muted",
+};

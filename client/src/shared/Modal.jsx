@@ -17,7 +17,7 @@ export const Modal = ({ title, subtitle, onClose, children }) => {
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="relative max-h-[90dvh] w-full max-w-md overflow-y-auto rounded-3xl border border-border/60 bg-surface/90 p-6 shadow-2xl sm:p-8"
+        className="relative flex max-h-[90dvh] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-border/60 bg-surface/95 shadow-2xl"
       >
         <button
           type="button"
@@ -27,9 +27,19 @@ export const Modal = ({ title, subtitle, onClose, children }) => {
         >
           <X size={16} />
         </button>
-        <h2 className="font-heading text-2xl font-bold text-text">{title}</h2>
-        {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
-        <div className="mt-6">{children}</div>
+
+        {/* Header (fixed) */}
+        <div className="shrink-0 px-6 pt-6 sm:px-8 sm:pt-8">
+          <h2 className="pr-8 font-heading text-2xl font-bold text-text">
+            {title}
+          </h2>
+          {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
+        </div>
+
+        {/* Content area: children decide what scrolls */}
+        <div className="mt-5 flex min-h-0 flex-1 flex-col px-6 pb-6 sm:px-8 sm:pb-8">
+          {children}
+        </div>
       </div>
     </div>
   );

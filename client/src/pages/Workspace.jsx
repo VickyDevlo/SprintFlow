@@ -33,7 +33,11 @@ const Workspace = () => {
 
     // Entering /workspace from "/" replaces the entry, so Back never lands on a stale "/"
     const inWorkspace = pathname.startsWith("/workspace");
-    window.history[inWorkspace ? "pushState" : "replaceState"](null, "", target);
+    window.history[inWorkspace ? "pushState" : "replaceState"](
+      null,
+      "",
+      target,
+    );
   }, [activeId]);
 
   // URL -> state (browser Back / Forward)

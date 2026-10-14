@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Section } from "../shared/Section";
 import BoardHeader from "../components/board/BoardHeader";
@@ -8,17 +8,21 @@ import TaskModal from "../components/board/TaskModal";
 import MemberModal from "../components/board/MemberModal";
 import { COLUMNS } from "../assets/assets";
 import { isOverdue } from "../utils/utils";
+import TaskDetailModal from "../components/board/TaskDetailModal";
 import {
   addMember,
   closeProject,
 } from "../redux/features/projects/projectsSlice";
 import {
+  addComment,
   addTask,
   deleteTask,
   moveTask,
+  updateTask,
 } from "../redux/features/tasks/tasksSlice";
 
 const ProjectBoard = () => {
+  const [openTaskId, setOpenTaskId] = useState(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const activeId = useSelector((state) => state.projects.activeId);
@@ -76,22 +80,44 @@ const ProjectBoard = () => {
   };
 
   const handleMove = (id, status) => dispatch(moveTask({ id, status }));
+  const openTask = tasks.find((t) => t.id === openTaskId);
+  const hasModal = Boolean(modal || openTask);
+
+  // Lock page scroll while any modal is open
+  useEffect(() => {
+    if (!hasModal) return;
+
+    const { body, documentElement } = document;
+    const prevOverflow = body.style.overflow;
+    const prevPadding = body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`; // stops the page shifting sideways
+
+    return () => {
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPadding;
+    };
+  }, [hasModal]);
+
+  if (!project) return null;
 
   return (
     <>
-      <Section id="board" className="px-4">
-        {/* Own top padding so the header clears the fixed navbar */}
-        <div className="pt-24 pb-16">
-          <BoardHeader
-            project={project}
-            isOwner={isOwner}
-            stats={stats}
-            percent={percent}
-            onBack={() => dispatch(closeProject())}
-            onAddTask={() => setModal("task")}
-            onAddMember={() => setModal("member")}
-          />
+      {/* Own top padding so the header clears the fixed navbar */}
+      <div className="pt-24 px-2 max-w-325 mx-auto">
+        <BoardHeader
+          project={project}
+          isOwner={isOwner}
+          stats={stats}
+          percent={percent}
+          onBack={() => dispatch(closeProject())}
+          onAddTask={() => setModal("task")}
+          onAddMember={() => setModal("member")}
+        />
 
+        <Section id="board" className="px-4">
           <BoardToolbar
             query={query}
             onQuery={setQuery}
@@ -111,14 +137,15 @@ const ProjectBoard = () => {
                 onAdd={
                   column.key === "todo" ? () => setModal("task") : undefined
                 }
+                onOpen={setOpenTaskId}
                 onDropTask={handleMove}
                 onMove={handleMove}
                 onDelete={(id) => dispatch(deleteTask(id))}
               />
             ))}
           </div>
-        </div>
-      </Section>
+        </Section>
+      </div>
 
       {modal === "task" && (
         <TaskModal
@@ -129,6 +156,24 @@ const ProjectBoard = () => {
       )}
       {modal === "member" && (
         <MemberModal onClose={closeModal} onSubmit={handleAddMember} />
+      )}
+      {openTask && (
+        <TaskDetailModal
+          task={openTask}
+          members={project.members}
+          onClose={() => setOpenTaskId(null)}
+          onUpdate={(changes) =>
+            dispatch(updateTask({ id: openTask.id, ...changes }))
+          }
+          onMove={(status) => dispatch(moveTask({ id: openTask.id, status }))}
+          onDelete={() => {
+            dispatch(deleteTask(openTask.id));
+            setOpenTaskId(null);
+          }}
+          onComment={(text) =>
+            dispatch(addComment({ taskId: openTask.id, author: me, text }))
+          }
+        />
       )}
     </>
   );

@@ -21,7 +21,7 @@ const MemberModal = ({ onClose, onSubmit }) => {
           autoFocus
           maxLength={40}
           placeholder="Member name"
-          className={INPUT_CLASS}
+          className={`${INPUT_CLASS} capitalize`}
         />
         <button
           type="submit"

@@ -9,6 +9,7 @@ const BoardColumn = ({
   onAdd,
   onDropTask,
   onMove,
+  onOpen,
   onDelete,
 }) => {
   const { key, label, icon: Icon, bar, text, chip } = column;
@@ -75,7 +76,7 @@ const BoardColumn = ({
           </div>
         ) : (
           tasks.map((task) => (
-            <TaskCard key={task.id} task={task} onMove={onMove} onDelete={onDelete} />
+            <TaskCard key={task.id} task={task} onMove={onMove} onDelete={onDelete} onOpen={onOpen} />
           ))
         )}
       </div>
